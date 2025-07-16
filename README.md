@@ -1,6 +1,17 @@
 # Hotel Booking Predictor
 
+🚀 **[Try the Live Demo](https://hotel-booking-predictor.onrender.com/predict)** 🚀
+
 A machine learning web application that predicts whether a hotel booking will be canceled or not based on various booking characteristics.
+
+> **Quick Start**: Visit the [live web application](https://hotel-booking-predictor.onrender.com/predict) to start making predictions immediately!
+
+## 🔗 Live Application Links
+
+- 🎯 **[Make Predictions](https://hotel-booking-predictor.onrender.com/predict)** - Main prediction interface
+- 🏠 **[Home Page](https://hotel-booking-predictor.onrender.com/)** - Application overview
+- ℹ️ **[About](https://hotel-booking-predictor.onrender.com/about)** - Model details and performance metrics
+- 🔍 **[API Health](https://hotel-booking-predictor.onrender.com/health)** - System status
 
 ## 🎯 Overview
 
