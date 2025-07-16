@@ -301,7 +301,6 @@ def internal_error(error):
 if __name__ == '__main__':
     # Use environment PORT for Railway deployment, fallback to 5000 for local
     port = int(os.environ.get('PORT', 5000))
-    debug = os.environ.get('FLASK_ENV') != 'production'
     
     logger.info("🚀 Starting Hotel Booking Predictor App...")
     logger.info(f"🌐 Starting server on port {port}")
@@ -313,4 +312,5 @@ if __name__ == '__main__':
     else:
         logger.info("⚠️ Model artifacts not loaded at startup. Will load on first request.")
     
-    app.run(host='0.0.0.0', port=port, debug=debug)
+    # For Railway, disable debug mode and use threaded mode
+    app.run(host='0.0.0.0', port=port, debug=False, threaded=True)

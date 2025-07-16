@@ -1,0 +1,5 @@
+{
+  "build": {
+    "commands": ["python extract_model.py"]
+  }
+}
