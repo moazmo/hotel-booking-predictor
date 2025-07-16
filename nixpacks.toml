@@ -5,7 +5,11 @@ nixPkgs = ['python39']
 cmds = ['pip install -r requirements.txt']
 
 [phases.build]
-cmds = ['python extract_model.py']
+cmds = [
+    'echo "Building ML model..."',
+    'python extract_model.py',
+    'echo "Model build complete"'
+]
 
 [start]
-cmd = 'gunicorn --workers=1 --timeout=120 --bind=0.0.0.0:$PORT app:app'
+cmd = 'python start.py'

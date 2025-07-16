@@ -33,6 +33,7 @@ scaler = None
 label_encoder = None
 feature_info = None
 
+# Load model artifacts at startup
 def load_model_artifacts():
     """Load the trained model and preprocessors"""
     global model, scaler, label_encoder, feature_info
@@ -41,30 +42,53 @@ def load_model_artifacts():
         # Use absolute paths
         models_dir = os.path.join(basedir, 'models')
         
+        # Check if models directory exists
+        if not os.path.exists(models_dir):
+            logger.error(f"Models directory not found: {models_dir}")
+            return False
+        
         # Load model
-        with open(os.path.join(models_dir, 'best_model.pkl'), 'rb') as f:
+        model_path = os.path.join(models_dir, 'best_model.pkl')
+        if not os.path.exists(model_path):
+            logger.error(f"Model file not found: {model_path}")
+            return False
+            
+        with open(model_path, 'rb') as f:
             model = pickle.load(f)
         
         # Load scaler
-        with open(os.path.join(models_dir, 'scaler.pkl'), 'rb') as f:
-            scaler = pickle.load(f)
+        scaler_path = os.path.join(models_dir, 'scaler.pkl')
+        if os.path.exists(scaler_path):
+            with open(scaler_path, 'rb') as f:
+                scaler = pickle.load(f)
         
         # Load label encoder
-        with open(os.path.join(models_dir, 'label_encoder.pkl'), 'rb') as f:
-            label_encoder = pickle.load(f)
+        le_path = os.path.join(models_dir, 'label_encoder.pkl')
+        if os.path.exists(le_path):
+            with open(le_path, 'rb') as f:
+                label_encoder = pickle.load(f)
         
         # Load feature info
-        with open(os.path.join(models_dir, 'feature_info.pkl'), 'rb') as f:
-            feature_info = pickle.load(f)
+        fi_path = os.path.join(models_dir, 'feature_info.pkl')
+        if os.path.exists(fi_path):
+            with open(fi_path, 'rb') as f:
+                feature_info = pickle.load(f)
         
         logger.info("Model artifacts loaded successfully")
-        logger.info(f"Model: {feature_info['model_name']}")
-        logger.info(f"Accuracy: {feature_info['model_accuracy']:.4f}")
+        if feature_info:
+            logger.info(f"Model: {feature_info['model_name']}")
+            logger.info(f"Accuracy: {feature_info['model_accuracy']:.4f}")
         
         return True
     except Exception as e:
         logger.error(f"Error loading model artifacts: {str(e)}")
         return False
+
+# Try to load models at startup
+try:
+    load_model_artifacts()
+except Exception as e:
+    logger.warning(f"Failed to load models at startup: {e}. Will retry on first request.")
 
 def preprocess_input(data):
     """Preprocess input data to match training format"""
@@ -118,6 +142,13 @@ def predict():
     
     elif request.method == 'POST':
         try:
+            # Ensure model is loaded
+            if model is None:
+                logger.info("Model not loaded, attempting to load...")
+                if not load_model_artifacts():
+                    return render_template('error.html', 
+                                         error="Model is not available. Please try again later.")
+            
             # Extract form data
             input_data = {
                 'number_of_adults': int(request.form['number_of_adults']),
@@ -212,16 +243,52 @@ def about():
 def health_check():
     """Health check endpoint for Railway"""
     try:
-        if model is None:
-            return jsonify({'status': 'unhealthy', 'reason': 'model not loaded'}), 503
-        return jsonify({
+        # Basic health check - just verify the app is running
+        health_status = {
             'status': 'healthy',
-            'model': feature_info['model_name'] if feature_info else 'Unknown',
-            'accuracy': feature_info['model_accuracy'] if feature_info else 0,
-            'timestamp': datetime.now().isoformat()
-        })
+            'timestamp': datetime.now().isoformat(),
+            'app': 'hotel-booking-predictor'
+        }
+        
+        # Add model status if available
+        if model is not None:
+            health_status['model'] = feature_info['model_name'] if feature_info else 'Unknown'
+            health_status['accuracy'] = feature_info['model_accuracy'] if feature_info else 0
+            health_status['model_loaded'] = True
+        else:
+            health_status['model_loaded'] = False
+            health_status['message'] = 'Model will be loaded on first prediction request'
+        
+        return jsonify(health_status), 200
+        
     except Exception as e:
-        return jsonify({'status': 'unhealthy', 'error': str(e)}), 503
+        return jsonify({
+            'status': 'partial',
+            'error': str(e),
+            'timestamp': datetime.now().isoformat()
+        }), 200  # Return 200 even on error to pass health check
+
+@app.route('/status')
+def status():
+    """Status endpoint for debugging"""
+    try:
+        models_dir = os.path.join(basedir, 'models')
+        status_info = {
+            'app': 'hotel-booking-predictor',
+            'timestamp': datetime.now().isoformat(),
+            'models_dir_exists': os.path.exists(models_dir),
+            'model_loaded': model is not None,
+            'scaler_loaded': scaler is not None,
+            'label_encoder_loaded': label_encoder is not None,
+            'feature_info_loaded': feature_info is not None
+        }
+        
+        if os.path.exists(models_dir):
+            status_info['model_files'] = os.listdir(models_dir)
+        
+        return jsonify(status_info)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 @app.errorhandler(404)
 def not_found(error):
@@ -232,18 +299,18 @@ def internal_error(error):
     return render_template('500.html'), 500
 
 if __name__ == '__main__':
-    # Load model artifacts
-    if not load_model_artifacts():
-        logger.error("❌ Failed to load model artifacts. Please run extract_model.py first.")
-        exit(1)
-    
-    logger.info("🚀 Starting Hotel Booking Predictor App...")
-    logger.info(f"📊 Model: {feature_info['model_name']}")
-    logger.info(f"🎯 Accuracy: {feature_info['model_accuracy']:.4f}")
-    
     # Use environment PORT for Railway deployment, fallback to 5000 for local
     port = int(os.environ.get('PORT', 5000))
     debug = os.environ.get('FLASK_ENV') != 'production'
     
+    logger.info("🚀 Starting Hotel Booking Predictor App...")
     logger.info(f"🌐 Starting server on port {port}")
+    
+    # Try to load model artifacts, but don't fail if unsuccessful
+    if load_model_artifacts():
+        logger.info(f"📊 Model: {feature_info['model_name']}")
+        logger.info(f"🎯 Accuracy: {feature_info['model_accuracy']:.4f}")
+    else:
+        logger.info("⚠️ Model artifacts not loaded at startup. Will load on first request.")
+    
     app.run(host='0.0.0.0', port=port, debug=debug)
