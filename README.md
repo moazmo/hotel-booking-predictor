@@ -222,7 +222,77 @@ EXPOSE 5000
 CMD ["python", "app.py"]
 ```
 
-## 📝 Usage Instructions
+## � Deployment
+
+### Deploy to Render
+
+This application is optimized for deployment on [Render.com](https://render.com), which provides excellent support for Python Flask applications.
+
+#### Quick Deploy Steps:
+
+1. **Fork/Clone this repository** to your GitHub account
+
+2. **Connect to Render**:
+   - Go to [Render.com](https://render.com) and sign up/login
+   - Click "New +" → "Web Service"
+   - Connect your GitHub repository
+
+3. **Configure the Service**:
+   - **Name**: `hotel-booking-predictor`
+   - **Runtime**: `Python 3`
+   - **Build Command**: `pip install -r requirements.txt && python extract_model.py`
+   - **Start Command**: `gunicorn --bind 0.0.0.0:$PORT app:app`
+
+4. **Set Environment Variables** (Optional):
+   - `SECRET_KEY`: Generate a secure secret key
+   - `PYTHON_VERSION`: `3.11.0`
+
+5. **Deploy**: Click "Create Web Service"
+
+#### Alternative: Using render.yaml
+
+This repository includes a `render.yaml` file for automated deployment:
+
+```yaml
+services:
+  - type: web
+    name: hotel-booking-predictor
+    runtime: python
+    buildCommand: "pip install -r requirements.txt && python extract_model.py"
+    startCommand: "gunicorn --bind 0.0.0.0:$PORT app:app"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: SECRET_KEY
+        generateValue: true
+```
+
+#### Features on Render:
+- ✅ **Free Tier Available**: Perfect for testing and demos
+- ✅ **Automatic HTTPS**: Secure connections out of the box
+- ✅ **Custom Domains**: Add your own domain name
+- ✅ **Auto-Deploy**: Automatic deployments from GitHub
+- ✅ **Health Checks**: Built-in monitoring at `/health`
+
+#### Post-Deployment:
+- Your app will be available at: `https://hotel-booking-predictor.onrender.com`
+- Health check endpoint: `https://hotel-booking-predictor.onrender.com/health`
+- API endpoint: `https://hotel-booking-predictor.onrender.com/api/predict`
+
+### Alternative Deployment Options
+
+#### Railway (Alternative)
+- Similar to Render with excellent Python support
+- Use the included `Procfile` and `start.sh`
+
+#### Heroku
+- Classic PaaS platform
+- Use the `Procfile` for deployment configuration
+
+#### Docker
+Use the included Dockerfile for containerized deployment on any platform.
+
+## �📝 Usage Instructions
 
 1. **Navigate to Home**: Open the application in your browser
 2. **Click Predict**: Go to the prediction page

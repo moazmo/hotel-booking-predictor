@@ -1,6 +1,6 @@
 """
 Hotel Booking Predictor Flask Application
-Production-ready version for Railway deployment
+Production-ready version for Render deployment
 """
 
 import os
@@ -244,7 +244,7 @@ def about():
 
 @app.route('/health')
 def health_check():
-    """Health check endpoint for Railway"""
+    """Health check endpoint for Render"""
     try:
         # Basic health check - just verify the app is running
         health_status = {
@@ -325,5 +325,5 @@ if __name__ == '__main__':
     logger.info(f"🌐 Starting server on port {port}")
     logger.info(f"🔍 PORT environment variable: '{port_env}'")
     
-    # For Railway, disable debug mode and use threaded mode
+    # For Render, disable debug mode and use threaded mode
     app.run(host='0.0.0.0', port=port, debug=False, threaded=True)
