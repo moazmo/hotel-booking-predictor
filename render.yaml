@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: hotel-booking-predictor
+    runtime: python
+    buildCommand: ./build.sh
+    startCommand: gunicorn --bind 0.0.0.0:$PORT app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: SECRET_KEY
+        generateValue: true
