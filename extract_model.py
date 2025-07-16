@@ -21,7 +21,14 @@ def load_and_preprocess_data():
     """Load and preprocess the data following the same steps as in the notebook"""
     
     # Load the dataset
-    df = pd.read_csv('../first intern project.csv')
+    data_path = os.path.join(os.path.dirname(__file__), '..', 'first intern project.csv')
+    if not os.path.exists(data_path):
+        # Try alternative path for production
+        data_path = os.path.join(os.path.dirname(__file__), 'first intern project.csv')
+    if not os.path.exists(data_path):
+        raise FileNotFoundError("Dataset 'first intern project.csv' not found")
+    
+    df = pd.read_csv(data_path)
     
     # Data preprocessing
     df_clean = df.dropna()

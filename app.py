@@ -1,15 +1,17 @@
 """
 Hotel Booking Predictor Flask Application
-Main application file
+Production-ready version for Railway deployment
 """
 
+import os
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 import pickle
 import pandas as pd
 import numpy as np
-import os
 from datetime import datetime
 import logging
+import warnings
+warnings.filterwarnings('ignore')
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -23,7 +25,7 @@ static_folder = os.path.join(basedir, 'app', 'static')
 app = Flask(__name__, 
             template_folder=template_folder,
             static_folder=static_folder)
-app.secret_key = 'your-secret-key-here'  # Change this in production
+app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
 
 # Global variables to store model artifacts
 model = None
@@ -206,6 +208,21 @@ def about():
     """About page"""
     return render_template('about.html', feature_info=feature_info)
 
+@app.route('/health')
+def health_check():
+    """Health check endpoint for Railway"""
+    try:
+        if model is None:
+            return jsonify({'status': 'unhealthy', 'reason': 'model not loaded'}), 503
+        return jsonify({
+            'status': 'healthy',
+            'model': feature_info['model_name'] if feature_info else 'Unknown',
+            'accuracy': feature_info['model_accuracy'] if feature_info else 0,
+            'timestamp': datetime.now().isoformat()
+        })
+    except Exception as e:
+        return jsonify({'status': 'unhealthy', 'error': str(e)}), 503
+
 @app.errorhandler(404)
 def not_found(error):
     return render_template('404.html'), 404
@@ -217,12 +234,18 @@ def internal_error(error):
 if __name__ == '__main__':
     # Load model artifacts
     if not load_model_artifacts():
-        print("❌ Failed to load model artifacts. Please run extract_model.py first.")
+        logger.error("❌ Failed to load model artifacts. Please run extract_model.py first.")
         exit(1)
     
-    print("🚀 Starting Hotel Booking Predictor App...")
-    print(f"📊 Model: {feature_info['model_name']}")
-    print(f"🎯 Accuracy: {feature_info['model_accuracy']:.4f}")
-    print("🌐 Access the app at: http://localhost:5000")
+    logger.info("🚀 Starting Hotel Booking Predictor App...")
+    logger.info(f"📊 Model: {feature_info['model_name']}")
+    logger.info(f"🎯 Accuracy: {feature_info['model_accuracy']:.4f}")
+    
+    # Use environment PORT for Railway deployment, fallback to 5000 for local
+    port = int(os.environ.get('PORT', 5000))
+    debug = os.environ.get('FLASK_ENV') != 'production'
+    
+    logger.info(f"🌐 Starting server on port {port}")
+    app.run(host='0.0.0.0', port=port, debug=debug)
     
     app.run(debug=True, host='0.0.0.0', port=5000)
