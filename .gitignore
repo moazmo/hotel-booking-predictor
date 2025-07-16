@@ -111,11 +111,11 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Dataset files (sensitive data)
-*.csv
+# Dataset files (sensitive data) - commented out for deployment
+# *.csv
 *.xlsx
 *.xls
-first\ intern\ project.csv
+# first\ intern\ project.csv
 first-intern-project.xlsx
 
 # Model files (large files)
