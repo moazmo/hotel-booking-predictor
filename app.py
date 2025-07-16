@@ -84,11 +84,14 @@ def load_model_artifacts():
         logger.error(f"Error loading model artifacts: {str(e)}")
         return False
 
-# Try to load models at startup
+# Initialize model artifacts at module level for gunicorn
 try:
     load_model_artifacts()
+    if feature_info:
+        logger.info(f"📊 Model loaded: {feature_info['model_name']}")
+        logger.info(f"🎯 Accuracy: {feature_info['model_accuracy']:.4f}")
 except Exception as e:
-    logger.warning(f"Failed to load models at startup: {e}. Will retry on first request.")
+    logger.warning(f"Model artifacts not loaded at startup: {e}. Will load on first request.")
 
 def preprocess_input(data):
     """Preprocess input data to match training format"""
@@ -298,19 +301,29 @@ def not_found(error):
 def internal_error(error):
     return render_template('500.html'), 500
 
+# Initialize model artifacts at module level for gunicorn
+try:
+    load_model_artifacts()
+    if feature_info:
+        logger.info(f"📊 Model loaded: {feature_info['model_name']}")
+        logger.info(f"🎯 Accuracy: {feature_info['model_accuracy']:.4f}")
+except Exception as e:
+    logger.warning(f"Model artifacts not loaded at startup: {e}. Will load on first request.")
+
 if __name__ == '__main__':
-    # Use environment PORT for Railway deployment, fallback to 5000 for local
-    port = int(os.environ.get('PORT', 5000))
+    # Get PORT from environment with robust error handling
+    port_env = os.environ.get('PORT', '5000')
+    
+    # Handle cases where PORT might be '$PORT' or other invalid values
+    try:
+        port = int(port_env)
+    except ValueError:
+        logger.warning(f"Invalid PORT value: '{port_env}', using default 5000")
+        port = 5000
     
     logger.info("🚀 Starting Hotel Booking Predictor App...")
     logger.info(f"🌐 Starting server on port {port}")
-    
-    # Try to load model artifacts, but don't fail if unsuccessful
-    if load_model_artifacts():
-        logger.info(f"📊 Model: {feature_info['model_name']}")
-        logger.info(f"🎯 Accuracy: {feature_info['model_accuracy']:.4f}")
-    else:
-        logger.info("⚠️ Model artifacts not loaded at startup. Will load on first request.")
+    logger.info(f"🔍 PORT environment variable: '{port_env}'")
     
     # For Railway, disable debug mode and use threaded mode
     app.run(host='0.0.0.0', port=port, debug=False, threaded=True)
