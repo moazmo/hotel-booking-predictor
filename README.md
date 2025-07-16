@@ -224,30 +224,49 @@ CMD ["python", "app.py"]
 
 ## � Deployment
 
-### Deploy to Render
+### Deploy to Render (Recommended)
 
 This application is optimized for deployment on [Render.com](https://render.com), which provides excellent support for Python Flask applications.
 
-#### Quick Deploy Steps:
+#### Step-by-Step Deployment:
 
-1. **Fork/Clone this repository** to your GitHub account
+1. **Connect Repository**:
+   - Go to [render.com](https://render.com) and sign up/login
+   - Click **"New +"** → **"Web Service"**
+   - Connect your GitHub repository: `moazmo/hotel-booking-predictor`
 
-2. **Connect to Render**:
-   - Go to [Render.com](https://render.com) and sign up/login
-   - Click "New +" → "Web Service"
-   - Connect your GitHub repository
-
-3. **Configure the Service**:
+2. **Configure Service Settings**:
    - **Name**: `hotel-booking-predictor`
    - **Runtime**: `Python 3`
-   - **Build Command**: `pip install -r requirements.txt && python extract_model.py`
-   - **Start Command**: `gunicorn --bind 0.0.0.0:$PORT app:app`
+   - **Region**: Choose your preferred region
+   - **Branch**: `master`
+   - **Root Directory**: Leave empty (use root)
 
-4. **Set Environment Variables** (Optional):
-   - `SECRET_KEY`: Generate a secure secret key
-   - `PYTHON_VERSION`: `3.11.0`
+3. **Build & Deploy Commands**:
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `python extract_model.py && gunicorn --bind 0.0.0.0:$PORT app:app`
 
-5. **Deploy**: Click "Create Web Service"
+4. **Environment Variables** (Optional but recommended):
+   - Click **"Advanced"** → **"Add Environment Variable"**
+   - Add: `SECRET_KEY` = `your-secret-key-here` (generate a secure random string)
+   - Add: `PYTHON_VERSION` = `3.11.0`
+
+5. **Deploy**:
+   - Click **"Create Web Service"**
+   - Render will automatically build and deploy your app
+   - Wait 5-10 minutes for the build to complete
+
+#### 🔧 Alternative Commands (if above fails):
+
+**Option 1**: Separate model creation
+- **Build Command**: `pip install -r requirements.txt && python extract_model.py`
+- **Start Command**: `gunicorn --bind 0.0.0.0:$PORT app:app`
+
+**Option 2**: Simple approach
+- **Build Command**: `pip install -r requirements.txt`
+- **Start Command**: `gunicorn --bind 0.0.0.0:$PORT app:app`
+  
+(Models will be created on first prediction request)
 
 #### Alternative: Using render.yaml
 
