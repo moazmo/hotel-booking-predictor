@@ -11,6 +11,6 @@ echo "🔍 PORT environment variable: $PORT"
 echo "📊 Creating ML models..."
 python extract_model.py
 
-# Start the application with gunicorn
+# Start the application with gunicorn using Railway's recommended pattern
 echo "🌐 Starting gunicorn server on port $PORT..."
-exec gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --timeout 120
+exec gunicorn --bind 0.0.0.0:$PORT app:app
