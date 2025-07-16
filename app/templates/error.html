@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Error - Hotel Booking Predictor{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-exclamation-triangle"></i> Prediction Error
+                </h4>
+            </div>
+            <div class="card-body text-center">
+                <div class="error-icon mb-4">
+                    <i class="fas fa-exclamation-circle fa-4x text-danger"></i>
+                </div>
+                <h3>Oops! Something went wrong</h3>
+                <p class="lead">
+                    We encountered an error while processing your prediction request.
+                </p>
+                
+                {% if error %}
+                <div class="alert alert-danger">
+                    <strong>Error Details:</strong> {{ error }}
+                </div>
+                {% endif %}
+                
+                <div class="mt-4">
+                    <a href="{{ url_for('predict') }}" class="btn btn-primary">
+                        <i class="fas fa-redo"></i> Try Again
+                    </a>
+                    <a href="{{ url_for('index') }}" class="btn btn-outline-secondary ms-2">
+                        <i class="fas fa-home"></i> Go Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

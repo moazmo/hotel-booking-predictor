@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Hotel Booking Predictor{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section text-center py-5 mb-5">
+    <div class="container">
+        <h1 class="display-4 mb-4">
+            <i class="fas fa-hotel text-primary"></i>
+            Hotel Booking Predictor
+        </h1>
+        <p class="lead mb-4">
+            Predict whether a hotel booking will be canceled or not using advanced machine learning algorithms.
+        </p>
+        <a href="{{ url_for('predict') }}" class="btn btn-primary btn-lg">
+            <i class="fas fa-chart-line"></i> Start Prediction
+        </a>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <div class="feature-icon mb-3">
+                    <i class="fas fa-brain fa-3x text-primary"></i>
+                </div>
+                <h5 class="card-title">Machine Learning</h5>
+                <p class="card-text">
+                    Uses advanced ML algorithms including Random Forest, Gradient Boosting, 
+                    and Logistic Regression to make accurate predictions.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <div class="feature-icon mb-3">
+                    <i class="fas fa-chart-bar fa-3x text-success"></i>
+                </div>
+                <h5 class="card-title">High Accuracy</h5>
+                <p class="card-text">
+                    Our model has been trained on comprehensive hotel booking data with 
+                    rigorous preprocessing and feature engineering.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+                <div class="feature-icon mb-3">
+                    <i class="fas fa-clock fa-3x text-warning"></i>
+                </div>
+                <h5 class="card-title">Real-time</h5>
+                <p class="card-text">
+                    Get instant predictions for hotel booking cancellations with 
+                    confidence scores and detailed insights.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- How it Works Section -->
+<div class="how-it-works mt-5">
+    <h2 class="text-center mb-4">How It Works</h2>
+    <div class="row">
+        <div class="col-md-3 text-center mb-4">
+            <div class="step-number">1</div>
+            <h5>Input Data</h5>
+            <p>Enter booking details like number of guests, nights, meal type, etc.</p>
+        </div>
+        <div class="col-md-3 text-center mb-4">
+            <div class="step-number">2</div>
+            <h5>Process</h5>
+            <p>Our ML model analyzes the data using trained algorithms.</p>
+        </div>
+        <div class="col-md-3 text-center mb-4">
+            <div class="step-number">3</div>
+            <h5>Predict</h5>
+            <p>Get prediction: "Canceled" or "Not Canceled" with confidence score.</p>
+        </div>
+        <div class="col-md-3 text-center mb-4">
+            <div class="step-number">4</div>
+            <h5>Insights</h5>
+            <p>View additional insights and booking statistics.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Call to Action -->
+<div class="cta-section text-center mt-5 py-4 bg-light rounded">
+    <h3>Ready to Predict Hotel Bookings?</h3>
+    <p class="mb-3">Try our machine learning model now!</p>
+    <a href="{{ url_for('predict') }}" class="btn btn-primary btn-lg">
+        <i class="fas fa-rocket"></i> Get Started
+    </a>
+</div>
+{% endblock %}

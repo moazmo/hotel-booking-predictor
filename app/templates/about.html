@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}About - Hotel Booking Predictor{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <!-- Project Overview -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-info-circle"></i> About This Project
+                </h4>
+            </div>
+            <div class="card-body">
+                <p class="lead">
+                    The Hotel Booking Predictor is a machine learning application that predicts whether 
+                    a hotel booking will be canceled or not based on various booking characteristics.
+                </p>
+                <p>
+                    This application uses advanced machine learning techniques to analyze booking patterns 
+                    and provide accurate predictions that can help hotel managers make informed decisions 
+                    about their reservations and resource allocation.
+                </p>
+            </div>
+        </div>
+
+        <!-- Model Information -->
+        {% if feature_info %}
+        <div class="card shadow mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-brain"></i> Model Performance
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Current Model</h6>
+                        <p><strong>Algorithm:</strong> {{ feature_info.model_name }}</p>
+                        <p><strong>Accuracy:</strong> {{ "%.2f" | format(feature_info.model_accuracy * 100) }}%</p>
+                        <p><strong>Features Used:</strong> {{ feature_info.all_columns | length }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Target Classes</h6>
+                        {% for class in feature_info.target_classes %}
+                        <span class="badge bg-secondary me-2">{{ class }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Methodology -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-cogs"></i> Methodology
+                </h5>
+            </div>
+            <div class="card-body">
+                <h6>Data Preprocessing</h6>
+                <ul>
+                    <li><strong>Data Cleaning:</strong> Handled missing values and removed duplicates</li>
+                    <li><strong>Outlier Detection:</strong> Used IQR method to identify and remove outliers</li>
+                    <li><strong>Feature Engineering:</strong> Created new features like total_nights, total_guests, price_per_night</li>
+                    <li><strong>Multicollinearity:</strong> Removed highly correlated features to improve model performance</li>
+                </ul>
+
+                <h6>Model Training</h6>
+                <ul>
+                    <li><strong>Algorithms Tested:</strong> Logistic Regression, Random Forest, Gradient Boosting, SVM</li>
+                    <li><strong>Cross-Validation:</strong> Used stratified train-test split to maintain class balance</li>
+                    <li><strong>Feature Scaling:</strong> Applied StandardScaler to normalize numerical features</li>
+                    <li><strong>Categorical Encoding:</strong> Used one-hot encoding for categorical variables</li>
+                </ul>
+
+                <h6>Model Selection</h6>
+                <p>
+                    The best performing model was selected based on accuracy score on the test set. 
+                    The model also provides prediction probabilities for confidence scoring.
+                </p>
+            </div>
+        </div>
+
+        <!-- Features Used -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                    <i class="fas fa-list"></i> Features Used in Prediction
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Guest Information</h6>
+                        <ul>
+                            <li>Number of adults</li>
+                            <li>Number of children</li>
+                            <li>Repeated guest status</li>
+                        </ul>
+
+                        <h6>Booking Details</h6>
+                        <ul>
+                            <li>Number of weekend nights</li>
+                            <li>Number of week nights</li>
+                            <li>Lead time (days)</li>
+                            <li>Average price per room</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Service Preferences</h6>
+                        <ul>
+                            <li>Type of meal plan</li>
+                            <li>Room type</li>
+                            <li>Car parking space</li>
+                            <li>Special requests</li>
+                        </ul>
+
+                        <h6>History & Segments</h6>
+                        <ul>
+                            <li>Market segment type</li>
+                            <li>Previous cancellations</li>
+                            <li>Previous non-cancellations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Stack -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-code"></i> Technical Stack
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Backend</h6>
+                        <ul>
+                            <li><strong>Framework:</strong> Flask (Python)</li>
+                            <li><strong>ML Libraries:</strong> scikit-learn, pandas, numpy</li>
+                            <li><strong>Data Processing:</strong> pandas, scipy</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Frontend</h6>
+                        <ul>
+                            <li><strong>Framework:</strong> Bootstrap 5</li>
+                            <li><strong>Icons:</strong> Font Awesome</li>
+                            <li><strong>Charts:</strong> JavaScript (Chart.js ready)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Usage Instructions -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-book"></i> How to Use
+                </h5>
+            </div>
+            <div class="card-body">
+                <ol>
+                    <li><strong>Navigate to Predict:</strong> Click on the "Predict" button in the navigation menu</li>
+                    <li><strong>Fill the Form:</strong> Enter all required booking details in the prediction form</li>
+                    <li><strong>Submit:</strong> Click "Predict Booking Status" to get your prediction</li>
+                    <li><strong>View Results:</strong> Review the prediction, confidence score, and insights</li>
+                    <li><strong>Take Action:</strong> Use the recommendations to make informed decisions</li>
+                </ol>
+                
+                <div class="alert alert-info mt-3">
+                    <strong>Tip:</strong> The more accurate the input data, the more reliable the prediction will be. 
+                    Make sure to fill all required fields with realistic values.
+                </div>
+            </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                    <i class="fas fa-exclamation-triangle"></i> Disclaimer
+                </h5>
+            </div>
+            <div class="card-body">
+                <p>
+                    This machine learning model is designed to assist in decision-making but should not be 
+                    the sole factor in business decisions. The predictions are based on historical data 
+                    patterns and may not account for all real-world variables.
+                </p>
+                <p class="mb-0">
+                    Always consider additional factors such as current market conditions, seasonal variations, 
+                    and specific customer circumstances when making booking-related decisions.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

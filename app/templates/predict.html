@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+
+{% block title %}Predict - Hotel Booking Predictor{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-chart-line"></i> Hotel Booking Prediction
+                </h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text mb-4">
+                    Enter the booking details below to predict whether the booking will be canceled or not.
+                </p>
+                
+                <form method="POST" id="predictionForm">
+                    <div class="row">
+                        <!-- Guest Information -->
+                        <div class="col-md-6 mb-3">
+                            <label for="number_of_adults" class="form-label">Number of Adults *</label>
+                            <input type="number" class="form-control" id="number_of_adults" name="number_of_adults" 
+                                   min="1" max="10" required value="2">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="number_of_children" class="form-label">Number of Children</label>
+                            <input type="number" class="form-control" id="number_of_children" name="number_of_children" 
+                                   min="0" max="10" value="0">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <!-- Stay Duration -->
+                        <div class="col-md-6 mb-3">
+                            <label for="number_of_weekend_nights" class="form-label">Weekend Nights *</label>
+                            <input type="number" class="form-control" id="number_of_weekend_nights" name="number_of_weekend_nights" 
+                                   min="0" max="30" required value="1">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="number_of_week_nights" class="form-label">Week Nights *</label>
+                            <input type="number" class="form-control" id="number_of_week_nights" name="number_of_week_nights" 
+                                   min="0" max="30" required value="2">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <!-- Meal and Room -->
+                        <div class="col-md-6 mb-3">
+                            <label for="type_of_meal" class="form-label">Type of Meal *</label>
+                            <select class="form-select" id="type_of_meal" name="type_of_meal" required>
+                                <option value="">Select meal type</option>
+                                <option value="Meal Plan 1">Meal Plan 1</option>
+                                <option value="Meal Plan 2">Meal Plan 2</option>
+                                <option value="Meal Plan 3">Meal Plan 3</option>
+                                <option value="Not Selected">Not Selected</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="room_type" class="form-label">Room Type *</label>
+                            <select class="form-select" id="room_type" name="room_type" required>
+                                <option value="">Select room type</option>
+                                <option value="Room_Type 1">Room Type 1</option>
+                                <option value="Room_Type 2">Room Type 2</option>
+                                <option value="Room_Type 3">Room Type 3</option>
+                                <option value="Room_Type 4">Room Type 4</option>
+                                <option value="Room_Type 5">Room Type 5</option>
+                                <option value="Room_Type 6">Room Type 6</option>
+                                <option value="Room_Type 7">Room Type 7</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <!-- Additional Services -->
+                        <div class="col-md-6 mb-3">
+                            <label for="car_parking_space" class="form-label">Car Parking Space</label>
+                            <select class="form-select" id="car_parking_space" name="car_parking_space">
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="lead_time" class="form-label">Lead Time (days) *</label>
+                            <input type="number" class="form-control" id="lead_time" name="lead_time" 
+                                   min="0" max="365" required value="30" 
+                                   title="Number of days between booking date and arrival date">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <!-- Market Information -->
+                        <div class="col-md-6 mb-3">
+                            <label for="market_segment_type" class="form-label">Market Segment *</label>
+                            <select class="form-select" id="market_segment_type" name="market_segment_type" required>
+                                <option value="">Select market segment</option>
+                                <option value="Online">Online</option>
+                                <option value="Offline">Offline</option>
+                                <option value="Corporate">Corporate</option>
+                                <option value="Aviation">Aviation</option>
+                                <option value="Complementary">Complementary</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="repeated" class="form-label">Repeated Guest</label>
+                            <select class="form-select" id="repeated" name="repeated">
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <!-- Previous Bookings -->
+                        <div class="col-md-6 mb-3">
+                            <label for="p_c" class="form-label">Previous Cancellations</label>
+                            <input type="number" class="form-control" id="p_c" name="p_c" 
+                                   min="0" max="50" value="0" 
+                                   title="Number of previous bookings that were cancelled">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="p_not_c" class="form-label">Previous Non-Cancellations</label>
+                            <input type="number" class="form-control" id="p_not_c" name="p_not_c" 
+                                   min="0" max="50" value="0" 
+                                   title="Number of previous bookings that were not cancelled">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <!-- Price and Requests -->
+                        <div class="col-md-6 mb-3">
+                            <label for="average_price" class="form-label">Average Price per Room *</label>
+                            <input type="number" class="form-control" id="average_price" name="average_price" 
+                                   min="0" step="0.01" required value="100.00"
+                                   title="Average price per room per night">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="special_requests" class="form-label">Special Requests</label>
+                            <input type="number" class="form-control" id="special_requests" name="special_requests" 
+                                   min="0" max="10" value="0"
+                                   title="Number of special requests made by the customer">
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-magic"></i> Predict Booking Status
+                        </button>
+                        <button type="reset" class="btn btn-outline-secondary btn-lg ms-2">
+                            <i class="fas fa-redo"></i> Reset Form
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Modal -->
+<div class="modal fade" id="loadingModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center py-4">
+                <div class="spinner-border text-primary mb-3" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <h5>Processing your prediction...</h5>
+                <p class="mb-0">Please wait while our ML model analyzes the data.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('predictionForm').addEventListener('submit', function() {
+    // Show loading modal
+    var loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+    loadingModal.show();
+});
+
+// Form validation and UX improvements
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-calculate total nights
+    const weekendNights = document.getElementById('number_of_weekend_nights');
+    const weekNights = document.getElementById('number_of_week_nights');
+    
+    function updateTotalNights() {
+        const total = parseInt(weekendNights.value || 0) + parseInt(weekNights.value || 0);
+        // You can display this somewhere if needed
+    }
+    
+    weekendNights.addEventListener('input', updateTotalNights);
+    weekNights.addEventListener('input', updateTotalNights);
+});
+</script>
+{% endblock %}

@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+
+{% block title %}Prediction Result - Hotel Booking Predictor{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <!-- Main Result Card -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-{% if result.prediction == 'Not_Canceled' %}success{% else %}danger{% endif %} text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-{% if result.prediction == 'Not_Canceled' %}check-circle{% else %}times-circle{% endif %}"></i>
+                    Prediction Result
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="result-main text-center">
+                            <h2 class="text-{% if result.prediction == 'Not_Canceled' %}success{% else %}danger{% endif %}">
+                                {% if result.prediction == 'Not_Canceled' %}
+                                    <i class="fas fa-check-circle"></i> NOT CANCELED
+                                {% else %}
+                                    <i class="fas fa-times-circle"></i> CANCELED
+                                {% endif %}
+                            </h2>
+                            <div class="confidence-meter mb-3">
+                                <h5>Confidence Score</h5>
+                                <div class="progress" style="height: 25px;">
+                                    <div class="progress-bar bg-{% if result.confidence > 70 %}success{% elif result.confidence > 50 %}warning{% else %}danger{% endif %}" 
+                                         role="progressbar" style="width: {{ result.confidence }}%">
+                                        {{ "%.1f" | format(result.confidence) }}%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="booking-summary">
+                            <h5><i class="fas fa-info-circle"></i> Booking Summary</h5>
+                            <table class="table table-sm">
+                                <tr>
+                                    <td><strong>Total Nights:</strong></td>
+                                    <td>{{ result.total_nights }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total Guests:</strong></td>
+                                    <td>{{ result.total_guests }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Price per Night:</strong></td>
+                                    <td>${{ "%.2f" | format(result.price_per_night) }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total Cost:</strong></td>
+                                    <td>${{ "%.2f" | format(result.price_per_night * result.total_nights) }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Model Information -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-brain"></i> Model Information
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Model Used:</strong> {{ result.model_name }}</p>
+                        <p><strong>Model Accuracy:</strong> {{ "%.2f" | format(result.model_accuracy) }}%</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Prediction Time:</strong> {{ moment().format('LLLL') }}</p>
+                        <p><strong>Data Points Analyzed:</strong> 14 features</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Data Review -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-list"></i> Input Data Review
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table table-sm">
+                            <tr>
+                                <td><strong>Adults:</strong></td>
+                                <td>{{ input_data.number_of_adults }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Children:</strong></td>
+                                <td>{{ input_data.number_of_children }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Weekend Nights:</strong></td>
+                                <td>{{ input_data.number_of_weekend_nights }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Week Nights:</strong></td>
+                                <td>{{ input_data.number_of_week_nights }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Meal Type:</strong></td>
+                                <td>{{ input_data.type_of_meal }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Car Parking:</strong></td>
+                                <td>{{ "Yes" if input_data.car_parking_space else "No" }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Room Type:</strong></td>
+                                <td>{{ input_data.room_type }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-sm">
+                            <tr>
+                                <td><strong>Lead Time:</strong></td>
+                                <td>{{ input_data.lead_time }} days</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Market Segment:</strong></td>
+                                <td>{{ input_data.market_segment_type }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Repeated Guest:</strong></td>
+                                <td>{{ "Yes" if input_data.repeated else "No" }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Previous Cancellations:</strong></td>
+                                <td>{{ input_data['P-C'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Previous Non-Cancellations:</strong></td>
+                                <td>{{ input_data['P-not-C'] }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Average Price:</strong></td>
+                                <td>${{ input_data.average_price }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Special Requests:</strong></td>
+                                <td>{{ input_data.special_requests }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Insights and Recommendations -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                    <i class="fas fa-lightbulb"></i> Insights & Recommendations
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if result.prediction == 'Canceled' %}
+                <div class="alert alert-danger">
+                    <h6><i class="fas fa-exclamation-triangle"></i> High Cancellation Risk</h6>
+                    <p>This booking has a high likelihood of being canceled. Consider:</p>
+                    <ul class="mb-0">
+                        <li>Implementing flexible cancellation policies</li>
+                        <li>Sending confirmation reminders</li>
+                        <li>Offering incentives to maintain the booking</li>
+                        <li>Having backup reservations ready</li>
+                    </ul>
+                </div>
+                {% else %}
+                <div class="alert alert-success">
+                    <h6><i class="fas fa-check-circle"></i> Low Cancellation Risk</h6>
+                    <p>This booking is likely to proceed as planned. You can:</p>
+                    <ul class="mb-0">
+                        <li>Proceed with standard booking procedures</li>
+                        <li>Focus resources on higher-risk bookings</li>
+                        <li>Consider upselling opportunities</li>
+                        <li>Prepare for the guest's arrival</li>
+                    </ul>
+                </div>
+                {% endif %}
+                
+                {% if input_data.lead_time > 100 %}
+                <div class="alert alert-info">
+                    <p><strong>Note:</strong> The lead time is quite high ({{ input_data.lead_time }} days). 
+                    Long lead times can sometimes increase cancellation probability.</p>
+                </div>
+                {% endif %}
+                
+                {% if result.total_nights > 7 %}
+                <div class="alert alert-info">
+                    <p><strong>Note:</strong> This is a long-stay booking ({{ result.total_nights }} nights). 
+                    Extended stays may have different cancellation patterns.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="text-center mb-4">
+            <a href="{{ url_for('predict') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-plus"></i> Make Another Prediction
+            </a>
+            <button onclick="window.print()" class="btn btn-outline-secondary btn-lg ms-2">
+                <i class="fas fa-print"></i> Print Result
+            </button>
+            <a href="{{ url_for('index') }}" class="btn btn-outline-primary btn-lg ms-2">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script>
+// Add any result-specific JavaScript here
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate the confidence bar
+    const progressBar = document.querySelector('.progress-bar');
+    if (progressBar) {
+        const width = progressBar.style.width;
+        progressBar.style.width = '0%';
+        setTimeout(() => {
+            progressBar.style.transition = 'width 1s ease-in-out';
+            progressBar.style.width = width;
+        }, 100);
+    }
+});
+</script>
+{% endblock %}
