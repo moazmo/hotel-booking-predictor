@@ -44,13 +44,15 @@ def load_model_artifacts():
         
         # Check if models directory exists
         if not os.path.exists(models_dir):
-            logger.error(f"Models directory not found: {models_dir}")
+            logger.warning(f"Models directory not found: {models_dir}")
+            logger.info("This is normal during deployment - models will be created by extract_model.py")
             return False
         
         # Load model
         model_path = os.path.join(models_dir, 'best_model.pkl')
         if not os.path.exists(model_path):
-            logger.error(f"Model file not found: {model_path}")
+            logger.warning(f"Model file not found: {model_path}")
+            logger.info("Model will be created during deployment build process")
             return False
             
         with open(model_path, 'rb') as f:

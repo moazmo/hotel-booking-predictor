@@ -20,14 +20,23 @@ warnings.filterwarnings('ignore')
 def load_and_preprocess_data():
     """Load and preprocess the data following the same steps as in the notebook"""
     
-    # Load the dataset
-    data_path = os.path.join(os.path.dirname(__file__), '..', 'first intern project.csv')
-    if not os.path.exists(data_path):
-        # Try alternative path for production
-        data_path = os.path.join(os.path.dirname(__file__), 'first intern project.csv')
-    if not os.path.exists(data_path):
-        raise FileNotFoundError("Dataset 'first intern project.csv' not found")
+    # Load the dataset - try multiple locations
+    possible_paths = [
+        'first intern project.csv',  # Current directory
+        os.path.join(os.path.dirname(__file__), 'first intern project.csv'),  # Script directory
+        os.path.join(os.path.dirname(__file__), '..', 'first intern project.csv'),  # Parent directory
+    ]
     
+    data_path = None
+    for path in possible_paths:
+        if os.path.exists(path):
+            data_path = path
+            break
+    
+    if data_path is None:
+        raise FileNotFoundError(f"Dataset 'first intern project.csv' not found in any of these locations: {possible_paths}")
+    
+    print(f"Loading dataset from: {data_path}")
     df = pd.read_csv(data_path)
     
     # Data preprocessing
@@ -181,7 +190,20 @@ def train_and_save_models():
 
 if __name__ == "__main__":
     try:
+        print("🚀 Starting model extraction...")
+        print(f"📂 Current working directory: {os.getcwd()}")
+        print(f"📄 Script location: {os.path.dirname(__file__)}")
+        
+        # List files in current directory
+        print(f"📋 Files in current directory: {os.listdir('.')}")
+        
         feature_info = train_and_save_models()
         print("\n✅ Model extraction completed successfully!")
+        print(f"🎯 Best model: {feature_info['model_name']}")
+        print(f"📊 Accuracy: {feature_info['model_accuracy']:.4f}")
     except Exception as e:
         print(f"❌ Error during model extraction: {str(e)}")
+        print(f"📍 Error type: {type(e).__name__}")
+        import traceback
+        print(f"🔍 Full traceback:\n{traceback.format_exc()}")
+        raise
