@@ -15,7 +15,14 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = Flask(__name__)
+# Get the absolute path to the templates and static folders
+basedir = os.path.abspath(os.path.dirname(__file__))
+template_folder = os.path.join(basedir, 'app', 'templates')
+static_folder = os.path.join(basedir, 'app', 'static')
+
+app = Flask(__name__, 
+            template_folder=template_folder,
+            static_folder=static_folder)
 app.secret_key = 'your-secret-key-here'  # Change this in production
 
 # Global variables to store model artifacts
@@ -29,20 +36,23 @@ def load_model_artifacts():
     global model, scaler, label_encoder, feature_info
     
     try:
+        # Use absolute paths
+        models_dir = os.path.join(basedir, 'models')
+        
         # Load model
-        with open('models/best_model.pkl', 'rb') as f:
+        with open(os.path.join(models_dir, 'best_model.pkl'), 'rb') as f:
             model = pickle.load(f)
         
         # Load scaler
-        with open('models/scaler.pkl', 'rb') as f:
+        with open(os.path.join(models_dir, 'scaler.pkl'), 'rb') as f:
             scaler = pickle.load(f)
         
         # Load label encoder
-        with open('models/label_encoder.pkl', 'rb') as f:
+        with open(os.path.join(models_dir, 'label_encoder.pkl'), 'rb') as f:
             label_encoder = pickle.load(f)
         
         # Load feature info
-        with open('models/feature_info.pkl', 'rb') as f:
+        with open(os.path.join(models_dir, 'feature_info.pkl'), 'rb') as f:
             feature_info = pickle.load(f)
         
         logger.info("Model artifacts loaded successfully")
@@ -147,7 +157,8 @@ def predict():
                 'total_guests': total_guests,
                 'price_per_night': price_per_night,
                 'model_name': feature_info['model_name'],
-                'model_accuracy': feature_info['model_accuracy'] * 100
+                'model_accuracy': feature_info['model_accuracy'] * 100,
+                'prediction_time': datetime.now().strftime('%A, %B %d, %Y at %I:%M %p')
             }
             
             return render_template('result.html', result=result, input_data=input_data)

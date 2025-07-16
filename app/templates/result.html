@@ -76,7 +76,7 @@
                         <p><strong>Model Accuracy:</strong> {{ "%.2f" | format(result.model_accuracy) }}%</p>
                     </div>
                     <div class="col-md-6">
-                        <p><strong>Prediction Time:</strong> {{ moment().format('LLLL') }}</p>
+                        <p><strong>Prediction Time:</strong> {{ result.prediction_time }}</p>
                         <p><strong>Data Points Analyzed:</strong> 14 features</p>
                     </div>
                 </div>
@@ -225,7 +225,6 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <script>
 // Add any result-specific JavaScript here
 document.addEventListener('DOMContentLoaded', function() {
