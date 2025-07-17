@@ -156,22 +156,11 @@ The application automatically selects the best performing model based on accurac
 - **Features Used**: 14 key booking characteristics
 - **Prediction Time**: < 100ms
 
-### Data Science Workflow Visualizations
+### ML Workflow
 
-#### Data Preprocessing Pipeline
-![Data Preprocessing](images/data_preprocessing_summary.svg)
+![ML Workflow](images/ml_workflow.svg)
 
-#### Feature Engineering Process
-![Feature Engineering](images/feature_engineering_summary.svg)
-
-#### Outlier Analysis
-![Outlier Analysis](images/outlier_analysis_summary.svg)
-
-#### Model Development & Selection
-![Modeling Process](images/modeling_summary.svg)
-
-#### Core Data Processing Summary
-![Core Processing](images/core_data_preprocessing_summary.svg)
+This comprehensive diagram illustrates my complete machine learning workflow for the hotel booking binary classification project, showing each step from data loading through model deployment.
 
 ## 🌐 API Usage
 
