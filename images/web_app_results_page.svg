@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f9fa"/>
+  
+  <!-- Header -->
+  <rect width="800" height="80" fill="#343a40"/>
+  <text x="40" y="50" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white">Hotel Booking Predictor</text>
+  
+  <!-- Navigation -->
+  <rect x="600" y="20" width="60" height="40" rx="5" fill="#007bff"/>
+  <text x="630" y="44" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">Home</text>
+  
+  <rect x="670" y="20" width="60" height="40" rx="5" fill="#28a745"/>
+  <text x="700" y="44" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">About</text>
+  
+  <!-- Main Content Area -->
+  <rect x="50" y="120" width="700" height="450" fill="white" stroke="#dee2e6" stroke-width="1" rx="10"/>
+  
+  <!-- Title -->
+  <text x="400" y="160" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#343a40" text-anchor="middle">Prediction Results</text>
+  
+  <!-- Result Card - No Cancellation -->
+  <rect x="100" y="190" width="600" height="120" fill="#d4edda" stroke="#c3e6cb" stroke-width="2" rx="10"/>
+  <circle cx="150" cy="230" r="20" fill="#28a745"/>
+  <text x="150" y="237" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">✓</text>
+  <text x="190" y="220" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#155724">No Cancellation Expected</text>
+  <text x="190" y="245" font-family="Arial, sans-serif" font-size="16" fill="#155724">This booking is likely to proceed as planned</text>
+  <text x="190" y="270" font-family="Arial, sans-serif" font-size="14" fill="#155724">Confidence: 85.6%</text>
+  <text x="190" y="290" font-family="Arial, sans-serif" font-size="14" fill="#155724">Model: Random Forest Classifier</text>
+  
+  <!-- Feature Importance Section -->
+  <text x="100" y="350" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#343a40">Key Factors Influencing Prediction:</text>
+  
+  <!-- Feature bars -->
+  <g transform="translate(100, 370)">
+    <!-- Lead Time -->
+    <text x="0" y="15" font-family="Arial, sans-serif" font-size="14" fill="#495057">Lead Time</text>
+    <rect x="120" y="5" width="180" height="15" fill="#007bff" rx="2"/>
+    <text x="310" y="15" font-family="Arial, sans-serif" font-size="12" fill="#6c757d">72%</text>
+    
+    <!-- Market Segment -->
+    <text x="0" y="40" font-family="Arial, sans-serif" font-size="14" fill="#495057">Market Segment</text>
+    <rect x="120" y="30" width="120" height="15" fill="#28a745" rx="2"/>
+    <text x="250" y="40" font-family="Arial, sans-serif" font-size="12" fill="#6c757d">48%</text>
+    
+    <!-- Guest Type -->
+    <text x="0" y="65" font-family="Arial, sans-serif" font-size="14" fill="#495057">Guest Type</text>
+    <rect x="120" y="55" width="75" height="15" fill="#ffc107" rx="2"/>
+    <text x="205" y="65" font-family="Arial, sans-serif" font-size="12" fill="#6c757d">30%</text>
+  </g>
+  
+  <!-- Recommendation Box -->
+  <rect x="100" y="450" width="600" height="80" fill="#fff3cd" stroke="#ffeaa7" stroke-width="1" rx="8"/>
+  <text x="120" y="475" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#856404">💡 Recommendation:</text>
+  <text x="120" y="495" font-family="Arial, sans-serif" font-size="14" fill="#856404">This booking has a low cancellation risk. Consider standard</text>
+  <text x="120" y="510" font-family="Arial, sans-serif" font-size="14" fill="#856404">confirmation procedures and maintain regular communication.</text>
+  
+  <!-- Action Buttons -->
+  <rect x="250" y="540" width="120" height="35" fill="#007bff" rx="5"/>
+  <text x="310" y="560" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle">New Prediction</text>
+  
+  <rect x="430" y="540" width="120" height="35" fill="#6c757d" rx="5"/>
+  <text x="490" y="560" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Export Results</text>
+</svg>

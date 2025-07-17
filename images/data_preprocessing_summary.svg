@@ -1,0 +1,198 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="600" y="40" font-family="Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#2c3e50">
+    Hotel Booking Data Preprocessing Summary - Task 2 Team
+  </text>
+  
+  <!-- Team Members -->
+  <text x="600" y="70" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#7f8c8d">
+    Moaz • Mostafa • Hazem Elsheikh
+  </text>
+  
+  <!-- Main Container -->
+  <rect x="50" y="100" width="1100" height="650" fill="white" stroke="#e0e0e0" stroke-width="2" rx="10"/>
+  
+  <!-- Section 1: Data Loading & Initial Exploration -->
+  <rect x="80" y="130" width="330" height="140" fill="#e8f4fd" stroke="#3498db" stroke-width="2" rx="8"/>
+  <text x="95" y="155" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2980b9">
+    1. Data Loading &amp; Initial Exploration
+  </text>
+  <text x="95" y="180" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Load hotel booking dataset (CSV)
+  </text>
+  <text x="95" y="200" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Check dataset shape and info()
+  </text>
+  <text x="95" y="220" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Analyze target variable distribution
+  </text>
+  <text x="95" y="240" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Strip whitespace from column names
+  </text>
+  <text x="95" y="260" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Basic statistical description
+  </text>
+  
+  <!-- Section 2: Data Cleaning -->
+  <rect x="440" y="130" width="330" height="140" fill="#fff2e8" stroke="#e67e22" stroke-width="2" rx="8"/>
+  <text x="455" y="155" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#d35400">
+    2. Data Cleaning &amp; Validation
+  </text>
+  <text x="455" y="180" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Check and handle null values (dropna)
+  </text>
+  <text x="455" y="200" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Convert date column to datetime format
+  </text>
+  <text x="455" y="220" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Fix corrupt date values (e.g., 2018-2-29)
+  </text>
+  <text x="455" y="240" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Detect and remove duplicates
+  </text>
+  <text x="455" y="260" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Drop irrelevant columns (Booking_ID)
+  </text>
+  
+  <!-- Section 3: Outlier Detection -->
+  <rect x="800" y="130" width="330" height="140" fill="#f0e8ff" stroke="#9b59b6" stroke-width="2" rx="8"/>
+  <text x="815" y="155" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#8e44ad">
+    3. Outlier Detection &amp; Handling
+  </text>
+  <text x="815" y="180" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • IQR method for outlier detection
+  </text>
+  <text x="815" y="200" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Z-Score method (threshold = 3)
+  </text>
+  <text x="815" y="220" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Boxplot visualization for outliers
+  </text>
+  <text x="815" y="240" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Outlier capping/removal techniques
+  </text>
+  <text x="815" y="260" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Focus on lead_time &amp; average_price
+  </text>
+  
+  <!-- Section 4: Feature Engineering -->
+  <rect x="80" y="300" width="330" height="160" fill="#e8f5e8" stroke="#27ae60" stroke-width="2" rx="8"/>
+  <text x="95" y="325" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2ecc71">
+    4. Feature Engineering
+  </text>
+  <text x="95" y="350" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Create new features:
+  </text>
+  <text x="105" y="370" font-family="Arial, sans-serif" font-size="13" fill="#34495e">
+    - total_nights (weekend + week nights)
+  </text>
+  <text x="105" y="390" font-family="Arial, sans-serif" font-size="13" fill="#34495e">
+    - total_guests (adults + children)
+  </text>
+  <text x="105" y="410" font-family="Arial, sans-serif" font-size="13" fill="#34495e">
+    - price_per_night calculation
+  </text>
+  <text x="105" y="430" font-family="Arial, sans-serif" font-size="13" fill="#34495e">
+    - previous_cancellation_flag
+  </text>
+  <text x="105" y="450" font-family="Arial, sans-serif" font-size="13" fill="#34495e">
+    - booking_ratio (P-C/total bookings)
+  </text>
+  
+  <!-- Section 5: Categorical Encoding -->
+  <rect x="440" y="300" width="330" height="160" fill="#ffe8e8" stroke="#e74c3c" stroke-width="2" rx="8"/>
+  <text x="455" y="325" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#c0392b">
+    5. Categorical Data Transformation
+  </text>
+  <text x="455" y="350" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Label Encoding for target variable:
+  </text>
+  <text x="465" y="370" font-family="Arial, sans-serif" font-size="13" fill="#34495e">
+    - booking_status (Canceled: 0, Not_Canceled: 1)
+  </text>
+  <text x="455" y="390" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • One-Hot Encoding for categorical features:
+  </text>
+  <text x="465" y="410" font-family="Arial, sans-serif" font-size="13" fill="#34495e">
+    - market_segment_type
+  </text>
+  <text x="465" y="430" font-family="Arial, sans-serif" font-size="13" fill="#34495e">
+    - room_type (some manual encoding)
+  </text>
+  <text x="465" y="450" font-family="Arial, sans-serif" font-size="13" fill="#34495e">
+    - type_of_meal (numerical conversion)
+  </text>
+  
+  <!-- Section 6: Multicollinearity & PCA -->
+  <rect x="800" y="300" width="330" height="160" fill="#fff8e1" stroke="#f39c12" stroke-width="2" rx="8"/>
+  <text x="815" y="325" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e67e22">
+    6. Multicollinearity &amp; Dimensionality
+  </text>
+  <text x="815" y="350" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Correlation matrix analysis
+  </text>
+  <text x="815" y="370" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Identify high correlations (&gt;0.8)
+  </text>
+  <text x="815" y="390" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Remove highly correlated features
+  </text>
+  <text x="815" y="410" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • PCA for dimensionality reduction
+  </text>
+  <text x="815" y="430" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Variance Inflation Factor (VIF) check
+  </text>
+  <text x="815" y="450" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Feature scaling with StandardScaler
+  </text>
+  
+  <!-- Section 7: Final Preparation -->
+  <rect x="260" y="490" width="680" height="120" fill="#f4f1ff" stroke="#6c5ce7" stroke-width="2" rx="8"/>
+  <text x="275" y="515" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#5f3dc4">
+    7. Final Data Preparation for Machine Learning
+  </text>
+  <text x="275" y="545" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Separate features (X) and target variable (y)
+  </text>
+  <text x="275" y="565" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Feature scaling for numerical columns using StandardScaler
+  </text>
+  <text x="275" y="585" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Train-test split (80-20) with stratification to maintain class distribution
+  </text>
+  
+  <!-- Workflow Arrows -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7f8c8d"/>
+    </marker>
+  </defs>
+  
+  <!-- Horizontal arrows -->
+  <line x1="410" y1="200" x2="430" y2="200" stroke="#7f8c8d" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="770" y1="200" x2="790" y2="200" stroke="#7f8c8d" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- Vertical arrows -->
+  <line x1="245" y1="280" x2="245" y2="290" stroke="#7f8c8d" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="605" y1="280" x2="605" y2="290" stroke="#7f8c8d" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="965" y1="280" x2="965" y2="290" stroke="#7f8c8d" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- Final arrow -->
+  <line x1="600" y1="470" x2="600" y2="480" stroke="#7f8c8d" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- Key Statistics Box -->
+  <rect x="80" y="640" width="1050" height="80" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1" rx="5"/>
+  <text x="95" y="665" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">
+    Key Results Across Team Implementations:
+  </text>
+  <text x="95" y="685" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Dataset: ~36,000 hotel booking records | Target: Binary classification (Canceled vs Not_Canceled)
+  </text>
+  <text x="95" y="705" font-family="Arial, sans-serif" font-size="14" fill="#34495e">
+    • Common preprocessing: Null handling, outlier detection, feature engineering, categorical encoding, multicollinearity resolution
+  </text>
+</svg>

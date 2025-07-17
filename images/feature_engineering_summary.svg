@@ -1,0 +1,269 @@
+<svg viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="900" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="600" y="40" font-family="Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#2c3e50">
+    Hotel Booking Data - Feature Engineering Summary
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="70" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="#7f8c8d">
+    Feature Creation, Selection &amp; Transformation Techniques
+  </text>
+  
+  <!-- Team Members -->
+  <text x="600" y="95" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#7f8c8d">
+    Moaz • Mostafa • Hazem Elsheikh
+  </text>
+  
+  <!-- Main Container -->
+  <rect x="50" y="120" width="1100" height="720" fill="white" stroke="#e0e0e0" stroke-width="2" rx="10"/>
+  
+  <!-- Section 1: New Feature Creation -->
+  <rect x="80" y="150" width="520" height="180" fill="#e8f4f8" stroke="#3182ce" stroke-width="2" rx="8"/>
+  <text x="95" y="175" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2a69ac">
+    1. New Feature Creation &amp; Engineering
+  </text>
+  
+  <!-- Mathematical Features -->
+  <rect x="100" y="190" width="240" height="130" fill="#bee3f8" stroke="#3182ce" stroke-width="1" rx="5"/>
+  <text x="110" y="210" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a365d">
+    Mathematical Combinations
+  </text>
+  <text x="110" y="230" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • total_nights = weekend + week nights
+  </text>
+  <text x="110" y="245" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • total_guests = adults + children
+  </text>
+  <text x="110" y="260" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • price_per_night = avg_price / total_nights
+  </text>
+  <text x="110" y="275" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • guest_density = guests / (nights + 1)
+  </text>
+  <text x="110" y="290" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • all_people, all_nights (variations)
+  </text>
+  <text x="110" y="305" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • stay_duration calculations
+  </text>
+  
+  <!-- Categorical Features -->
+  <rect x="360" y="190" width="220" height="130" fill="#bee3f8" stroke="#3182ce" stroke-width="1" rx="5"/>
+  <text x="370" y="210" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a365d">
+    Categorical Features
+  </text>
+  <text x="370" y="230" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • is_family = (children > 0)
+  </text>
+  <text x="370" y="245" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • has_previous_cancellation flag
+  </text>
+  <text x="370" y="260" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • lead_time_category binning
+  </text>
+  <text x="370" y="275" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • booking_ratio = P-C / total bookings
+  </text>
+  <text x="370" y="290" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • Binary flag creation
+  </text>
+  <text x="370" y="305" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • Thresholding techniques
+  </text>
+  
+  <!-- Section 2: Data Transformation -->
+  <rect x="640" y="150" width="480" height="180" fill="#f0f9ff" stroke="#0369a1" stroke-width="2" rx="8"/>
+  <text x="655" y="175" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#0c4a6e">
+    2. Data Transformation Techniques
+  </text>
+  <text x="655" y="205" font-family="Arial, sans-serif" font-size="15" fill="#2d3748">
+    • <tspan font-weight="bold">Log Transformation:</tspan> lead_time_log = log1p(lead_time)
+  </text>
+  <text x="655" y="225" font-family="Arial, sans-serif" font-size="15" fill="#2d3748">
+    • <tspan font-weight="bold">Binning:</tspan> Lead time categories (very_short, short, medium, long)
+  </text>
+  <text x="655" y="245" font-family="Arial, sans-serif" font-size="15" fill="#2d3748">
+    • <tspan font-weight="bold">Skewness Reduction:</tspan> Address distribution problems
+  </text>
+  <text x="655" y="265" font-family="Arial, sans-serif" font-size="15" fill="#2d3748">
+    • <tspan font-weight="bold">Categorical Encoding:</tspan> One-hot encoding for categories
+  </text>
+  <text x="655" y="285" font-family="Arial, sans-serif" font-size="15" fill="#2d3748">
+    • <tspan font-weight="bold">Feature Scaling:</tspan> StandardScaler for normalization
+  </text>
+  <text x="655" y="305" font-family="Arial, sans-serif" font-size="15" fill="#2d3748">
+    • <tspan font-weight="bold">Manual Encoding:</tspan> String replacements for meal/room types
+  </text>
+  
+  <!-- Section 3: Feature Selection -->
+  <rect x="80" y="360" width="520" height="160" fill="#f0f4f8" stroke="#4a5568" stroke-width="2" rx="8"/>
+  <text x="95" y="385" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2d3748">
+    3. Feature Selection &amp; Dimensionality Reduction
+  </text>
+  
+  <!-- Correlation Analysis -->
+  <rect x="100" y="400" width="220" height="110" fill="#e2e8f0" stroke="#4a5568" stroke-width="1" rx="5"/>
+  <text x="110" y="420" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a202c">
+    Correlation Analysis
+  </text>
+  <text x="110" y="440" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • Correlation matrix computation
+  </text>
+  <text x="110" y="455" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • High correlation detection (&gt;0.8)
+  </text>
+  <text x="110" y="470" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • Automatic feature removal
+  </text>
+  <text x="110" y="485" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • Heatmap visualization
+  </text>
+  <text x="110" y="500" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • Multicollinearity reduction
+  </text>
+  
+  <!-- VIF Analysis -->
+  <rect x="340" y="400" width="240" height="110" fill="#e2e8f0" stroke="#4a5568" stroke-width="1" rx="5"/>
+  <text x="350" y="420" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1a202c">
+    VIF &amp; Statistical Methods
+  </text>
+  <text x="350" y="440" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • Variance Inflation Factor calculation
+  </text>
+  <text x="350" y="455" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • Tolerance measurement (1/VIF)
+  </text>
+  <text x="350" y="470" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • Feature importance ranking
+  </text>
+  <text x="350" y="485" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • Statistical significance testing
+  </text>
+  <text x="350" y="500" font-family="Arial, sans-serif" font-size="12" fill="#2d3748">
+    • Manual feature elimination
+  </text>
+  
+  <!-- Section 4: Advanced Techniques -->
+  <rect x="640" y="360" width="480" height="160" fill="#fef5e7" stroke="#d69e2e" stroke-width="2" rx="8"/>
+  <text x="655" y="385" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#b7791f">
+    4. Advanced Feature Engineering
+  </text>
+  <text x="655" y="415" font-family="Arial, sans-serif" font-size="15" fill="#2d3748">
+    • <tspan font-weight="bold">PCA:</tspan> Principal Component Analysis (95% variance retention)
+  </text>
+  <text x="655" y="435" font-family="Arial, sans-serif" font-size="15" fill="#2d3748">
+    • <tspan font-weight="bold">SMOTE:</tspan> Synthetic sampling for class balancing
+  </text>
+  <text x="655" y="455" font-family="Arial, sans-serif" font-size="15" fill="#2d3748">
+    • <tspan font-weight="bold">Feature Interaction:</tspan> Ratio and density calculations
+  </text>
+  <text x="655" y="475" font-family="Arial, sans-serif" font-size="15" fill="#2d3748">
+    • <tspan font-weight="bold">Domain Knowledge:</tspan> Business-driven feature creation
+  </text>
+  <text x="655" y="495" font-family="Arial, sans-serif" font-size="15" fill="#2d3748">
+    • <tspan font-weight="bold">Data Quality:</tspan> Feature validation and cleaning
+  </text>
+  
+  <!-- Section 5: Team Implementation Results -->
+  <rect x="80" y="550" width="1040" height="180" fill="#f7fafc" stroke="#4a5568" stroke-width="2" rx="8"/>
+  <text x="95" y="575" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#2d3748">
+    5. Team Implementation Approaches &amp; Specialized Techniques
+  </text>
+  
+  <!-- Results Grid -->
+  <rect x="100" y="590" width="320" height="130" fill="#edf2f7" stroke="#cbd5e0" stroke-width="1" rx="5"/>
+  <text x="110" y="610" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2d3748">
+    Moaz's Approach
+  </text>
+  <text x="110" y="630" font-family="Arial, sans-serif" font-size="13" fill="#4a5568">
+    • Comprehensive feature creation (total_nights, total_guests)
+  </text>
+  <text x="110" y="645" font-family="Arial, sans-serif" font-size="13" fill="#4a5568">
+    • Price per night calculations
+  </text>
+  <text x="110" y="660" font-family="Arial, sans-serif" font-size="13" fill="#4a5568">
+    • Correlation-based feature removal
+  </text>
+  <text x="110" y="675" font-family="Arial, sans-serif" font-size="13" fill="#4a5568">
+    • PCA for dimensionality reduction
+  </text>
+  <text x="110" y="690" font-family="Arial, sans-serif" font-size="13" fill="#4a5568">
+    • StandardScaler normalization
+  </text>
+  <text x="110" y="705" font-family="Arial, sans-serif" font-size="13" fill="#4a5568">
+    • Feature importance analysis
+  </text>
+  
+  <rect x="440" y="590" width="320" height="130" fill="#edf2f7" stroke="#cbd5e0" stroke-width="1" rx="5"/>
+  <text x="450" y="610" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2d3748">
+    Mostafa's Approach
+  </text>
+  <text x="450" y="630" font-family="Arial, sans-serif" font-size="13" fill="#4a5568">
+    • Advanced feature combinations (guest_density)
+  </text>
+  <text x="450" y="645" font-family="Arial, sans-serif" font-size="13" fill="#4a5568">
+    • Categorical feature creation (is_family)
+  </text>
+  <text x="450" y="660" font-family="Arial, sans-serif" font-size="13" fill="#4a5568">
+    • Lead time categorization with binning
+  </text>
+  <text x="450" y="675" font-family="Arial, sans-serif" font-size="13" fill="#4a5568">
+    • SMOTE for class balancing
+  </text>
+  <text x="450" y="690" font-family="Arial, sans-serif" font-size="13" fill="#4a5568">
+    • High correlation threshold (0.85)
+  </text>
+  <text x="450" y="705" font-family="Arial, sans-serif" font-size="13" fill="#4a5568">
+    • One-hot encoding automation
+  </text>
+  
+  <rect x="780" y="590" width="320" height="130" fill="#edf2f7" stroke="#cbd5e0" stroke-width="1" rx="5"/>
+  <text x="790" y="610" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2d3748">
+    Hazem's Approach
+  </text>
+  <text x="790" y="630" font-family="Arial, sans-serif" font-size="13" fill="#4a5568">
+    • Log transformation for skewness (lead_time_log)
+  </text>
+  <text x="790" y="645" font-family="Arial, sans-serif" font-size="13" fill="#4a5568">
+    • Business logic features (booking_ratio)
+  </text>
+  <text x="790" y="660" font-family="Arial, sans-serif" font-size="13" fill="#4a5568">
+    • VIF analysis for multicollinearity
+  </text>
+  <text x="790" y="675" font-family="Arial, sans-serif" font-size="13" fill="#4a5568">
+    • Manual categorical encoding
+  </text>
+  <text x="790" y="690" font-family="Arial, sans-serif" font-size="13" fill="#4a5568">
+    • Statistical validation (tolerance calculation)
+  </text>
+  <text x="790" y="705" font-family="Arial, sans-serif" font-size="13" fill="#4a5568">
+    • Systematic feature elimination
+  </text>
+  
+  <!-- Workflow Arrows -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#718096"/>
+    </marker>
+  </defs>
+  
+  <!-- Flow arrows -->
+  <line x1="340" y1="340" x2="340" y2="350" stroke="#718096" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="880" y1="340" x2="880" y2="350" stroke="#718096" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="600" y1="530" x2="600" y2="540" stroke="#718096" stroke-width="2" marker-end="url(#arrowhead)"/>
+  
+  <!-- Final Summary Box -->
+  <rect x="80" y="750" width="1040" height="70" fill="#e6fffa" stroke="#319795" stroke-width="1" rx="5"/>
+  <text x="95" y="770" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c7a7b">
+    Feature Engineering Results Summary:
+  </text>
+  <text x="95" y="790" font-family="Arial, sans-serif" font-size="14" fill="#2d3748">
+    Enhanced dataset with 15+ new features • Mathematical combinations and business logic features created
+  </text>
+  <text x="95" y="805" font-family="Arial, sans-serif" font-size="14" fill="#2d3748">
+    Team achieved comprehensive feature set through complementary approaches: statistical analysis, domain expertise, and automated techniques
+  </text>
+</svg>

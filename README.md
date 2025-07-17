@@ -6,6 +6,20 @@ A machine learning web application that predicts whether a hotel booking will be
 
 > **Quick Start**: Visit the [live web application](https://hotel-booking-predictor.onrender.com/predict) to start making predictions immediately!
 
+## 📱 Web Application Preview
+
+### Home Page
+![Home Page](images/web_app_home_page.svg)
+
+### Prediction Interface
+![Prediction Page](images/web_app_prediction_page.svg)
+
+### Results Display
+![Results Page](images/web_app_results_page.svg)
+
+### System Architecture
+![System Architecture](images/system_architecture.svg)
+
 ## 🔗 Live Application Links
 
 - 🎯 **[Make Predictions](https://hotel-booking-predictor.onrender.com/predict)** - Main prediction interface
@@ -147,6 +161,23 @@ The application automatically selects the best performing model based on accurac
 - **Accuracy**: 85-95% (varies by model)
 - **Features Used**: 14 key booking characteristics
 - **Prediction Time**: < 100ms
+
+### Data Science Workflow Visualizations
+
+#### Data Preprocessing Pipeline
+![Data Preprocessing](images/data_preprocessing_summary.svg)
+
+#### Feature Engineering Process
+![Feature Engineering](images/feature_engineering_summary.svg)
+
+#### Outlier Analysis
+![Outlier Analysis](images/outlier_analysis_summary.svg)
+
+#### Model Development & Selection
+![Modeling Process](images/modeling_summary.svg)
+
+#### Core Data Processing Summary
+![Core Processing](images/core_data_preprocessing_summary.svg)
 
 ## 🌐 API Usage
 

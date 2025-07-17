@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f9fa"/>
+  
+  <!-- Header -->
+  <rect width="800" height="80" fill="#343a40"/>
+  <text x="40" y="50" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white">Hotel Booking Predictor</text>
+  
+  <!-- Navigation -->
+  <rect x="520" y="20" width="60" height="40" rx="5" fill="#6c757d"/>
+  <text x="550" y="44" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">Home</text>
+  
+  <rect x="590" y="20" width="60" height="40" rx="5" fill="#007bff"/>
+  <text x="620" y="44" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">Predict</text>
+  
+  <rect x="660" y="20" width="60" height="40" rx="5" fill="#28a745"/>
+  <text x="690" y="44" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">About</text>
+  
+  <!-- Hero Section -->
+  <rect x="50" y="120" width="700" height="200" fill="linear-gradient(135deg, #667eea 0%, #764ba2 100%)" rx="15"/>
+  <text x="400" y="170" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="white" text-anchor="middle">AI-Powered Hotel Booking</text>
+  <text x="400" y="210" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="white" text-anchor="middle">Cancellation Predictor</text>
+  <text x="400" y="250" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">Predict booking cancellations with 89% accuracy using advanced machine learning</text>
+  
+  <!-- CTA Button -->
+  <rect x="325" y="270" width="150" height="40" fill="#28a745" rx="20"/>
+  <text x="400" y="294" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">Try Prediction Now</text>
+  
+  <!-- Features Section -->
+  <text x="400" y="370" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#343a40" text-anchor="middle">Key Features</text>
+  
+  <!-- Feature Cards -->
+  <g transform="translate(80, 390)">
+    <!-- Card 1 -->
+    <rect width="180" height="120" fill="white" stroke="#dee2e6" stroke-width="1" rx="10"/>
+    <circle cx="90" cy="40" r="20" fill="#007bff"/>
+    <text cx="90" cy="47" font-family="Arial, sans-serif" font-size="20" fill="white" text-anchor="middle">🎯</text>
+    <text x="90" y="70" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#343a40" text-anchor="middle">89% Accuracy</text>
+    <text x="90" y="90" font-family="Arial, sans-serif" font-size="12" fill="#6c757d" text-anchor="middle">Highly accurate ML</text>
+    <text x="90" y="105" font-family="Arial, sans-serif" font-size="12" fill="#6c757d" text-anchor="middle">predictions</text>
+    
+    <!-- Card 2 -->
+    <g transform="translate(220, 0)">
+      <rect width="180" height="120" fill="white" stroke="#dee2e6" stroke-width="1" rx="10"/>
+      <circle cx="90" cy="40" r="20" fill="#28a745"/>
+      <text cx="90" cy="47" font-family="Arial, sans-serif" font-size="20" fill="white" text-anchor="middle">⚡</text>
+      <text x="90" y="70" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#343a40" text-anchor="middle">Real-time Results</text>
+      <text x="90" y="90" font-family="Arial, sans-serif" font-size="12" fill="#6c757d" text-anchor="middle">Instant predictions</text>
+      <text x="90" y="105" font-family="Arial, sans-serif" font-size="12" fill="#6c757d" text-anchor="middle">with explanations</text>
+    </g>
+    
+    <!-- Card 3 -->
+    <g transform="translate(440, 0)">
+      <rect width="180" height="120" fill="white" stroke="#dee2e6" stroke-width="1" rx="10"/>
+      <circle cx="90" cy="40" r="20" fill="#ffc107"/>
+      <text cx="90" cy="47" font-family="Arial, sans-serif" font-size="20" fill="white" text-anchor="middle">📊</text>
+      <text x="90" y="70" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#343a40" text-anchor="middle">Detailed Insights</text>
+      <text x="90" y="90" font-family="Arial, sans-serif" font-size="12" fill="#6c757d" text-anchor="middle">Feature importance</text>
+      <text x="90" y="105" font-family="Arial, sans-serif" font-size="12" fill="#6c757d" text-anchor="middle">and recommendations</text>
+    </g>
+  </g>
+  
+  <!-- Footer -->
+  <text x="400" y="580" font-family="Arial, sans-serif" font-size="12" fill="#6c757d" text-anchor="middle">Built with Flask, scikit-learn, and Bootstrap | Deployed on Render</text>
+</svg>
