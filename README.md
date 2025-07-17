@@ -9,16 +9,10 @@ A machine learning web application that predicts whether a hotel booking will be
 ## 📱 Web Application Preview
 
 ### Home Page
-![Home Page](images/web_app_home_page.svg)
+![Home Page](images/home_page.PNG)
 
 ### Prediction Interface
-![Prediction Page](images/web_app_prediction_page.svg)
-
-### Results Display
-![Results Page](images/web_app_results_page.svg)
-
-### System Architecture
-![System Architecture](images/system_architecture.svg)
+![Prediction Page](images/predict_page.PNG)
 
 ## 🔗 Live Application Links
 
