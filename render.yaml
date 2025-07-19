@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: hotel-booking-predictor
+    runtime: python
+    buildCommand: pip install -r requirements.txt && python extract_optimized_compatible.py
+    startCommand: gunicorn app:app
+    plan: free
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: PORT
+        value: 10000
