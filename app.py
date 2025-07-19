@@ -101,17 +101,21 @@ def preprocess_input(data):
         # Create DataFrame from input
         input_df = pd.DataFrame([data])
         
+        # CRITICAL: Strip column names to match training (training script strips them)
+        input_df.columns = input_df.columns.str.strip()
+        
         # Feature engineering (same as training)
-        input_df['total_nights'] = input_df['number_of_weekend_nights'] + input_df['number_of_week_nights']
-        input_df['total_guests'] = input_df['number_of_adults'] + input_df['number_of_children']
-        input_df['price_per_night'] = input_df['average_price'] / (input_df['total_nights'] + 1)
+        input_df['total_nights'] = input_df['number of weekend nights'] + input_df['number of week nights']
+        input_df['total_guests'] = input_df['number of adults'] + input_df['number of children']
+        input_df['price_per_night'] = input_df['average price'] / (input_df['total_nights'] + 1)
         
         # One-hot encode categorical features
-        categorical_features = ['type_of_meal', 'room_type', 'market_segment_type']
+        categorical_features = ['type of meal', 'room type', 'market segment type']
         for feature in categorical_features:
             if feature in input_df.columns:
-                # Create dummy variables
-                dummies = pd.get_dummies(input_df[feature], prefix=feature, drop_first=True)
+                # Create dummy variables with proper prefix (replace spaces with underscores)
+                prefix = feature.replace(' ', '_')
+                dummies = pd.get_dummies(input_df[feature], prefix=prefix, drop_first=True)
                 input_df = pd.concat([input_df, dummies], axis=1)
                 input_df.drop(feature, axis=1, inplace=True)
         
@@ -154,39 +158,47 @@ def predict():
                     return render_template('error.html', 
                                          error="Model is not available. Please try again later.")
             
-            # Extract form data
+            # Extract form data and map to dataset column names
             input_data = {
-                'number_of_adults': int(request.form['number_of_adults']),
-                'number_of_children': int(request.form['number_of_children']),
-                'number_of_weekend_nights': int(request.form['number_of_weekend_nights']),
-                'number_of_week_nights': int(request.form['number_of_week_nights']),
-                'type_of_meal': request.form['type_of_meal'],
-                'car_parking_space': int(request.form['car_parking_space']),
-                'room_type': request.form['room_type'],
-                'lead_time': int(request.form['lead_time']),
-                'market_segment_type': request.form['market_segment_type'],
+                'number of adults': int(request.form['number_of_adults']),
+                'number of children': int(request.form['number_of_children']),
+                'number of weekend nights': int(request.form['number_of_weekend_nights']),
+                'number of week nights': int(request.form['number_of_week_nights']),
+                'type of meal': request.form['type_of_meal'],
+                'car parking space': int(request.form['car_parking_space']),
+                'room type': request.form['room_type'],
+                'lead time': int(request.form['lead_time']),
+                'market segment type': request.form['market_segment_type'],
                 'repeated': int(request.form['repeated']),
                 'P-C': int(request.form['p_c']),
                 'P-not-C': int(request.form['p_not_c']),
-                'average_price': float(request.form['average_price']),
-                'special_requests': int(request.form['special_requests'])
+                'average price': float(request.form['average_price']),
+                'special requests': int(request.form['special_requests'])
             }
             
             # Preprocess input
             processed_data = preprocess_input(input_data)
             
-            # Make prediction
-            prediction = model.predict(processed_data)[0]
+            # Make prediction with optimal threshold
             prediction_proba = model.predict_proba(processed_data)[0]
+            
+            # Use optimal threshold from model training
+            optimal_threshold = feature_info.get('optimal_threshold', 0.5)
+            prediction = 1 if prediction_proba[1] > optimal_threshold else 0
+            
+            # Log prediction details
+            logger.info(f"Prediction probabilities: [Canceled: {prediction_proba[0]:.4f}, Not_Canceled: {prediction_proba[1]:.4f}]")
+            logger.info(f"Optimal threshold: {optimal_threshold:.4f}")
+            logger.info(f"Prediction: {prediction} ({'Not_Canceled' if prediction == 1 else 'Canceled'})")
             
             # Decode prediction
             predicted_status = label_encoder.inverse_transform([prediction])[0]
             confidence = max(prediction_proba) * 100
             
             # Calculate additional insights
-            total_nights = input_data['number_of_weekend_nights'] + input_data['number_of_week_nights']
-            total_guests = input_data['number_of_adults'] + input_data['number_of_children']
-            price_per_night = input_data['average_price'] / max(total_nights, 1)
+            total_nights = input_data['number of weekend nights'] + input_data['number of week nights']
+            total_guests = input_data['number of adults'] + input_data['number of children']
+            price_per_night = input_data['average price'] / max(total_nights, 1)
             
             result = {
                 'prediction': predicted_status,
@@ -199,7 +211,25 @@ def predict():
                 'prediction_time': datetime.now().strftime('%A, %B %d, %Y at %I:%M %p')
             }
             
-            return render_template('result.html', result=result, input_data=input_data)
+            # Convert input_data keys back to underscore format for template compatibility
+            template_input_data = {
+                'number_of_adults': input_data['number of adults'],
+                'number_of_children': input_data['number of children'],
+                'number_of_weekend_nights': input_data['number of weekend nights'],
+                'number_of_week_nights': input_data['number of week nights'],
+                'type_of_meal': input_data['type of meal'],
+                'car_parking_space': input_data['car parking space'],
+                'room_type': input_data['room type'],
+                'lead_time': input_data['lead time'],
+                'market_segment_type': input_data['market segment type'],
+                'repeated': input_data['repeated'],
+                'p_c': input_data['P-C'],
+                'p_not_c': input_data['P-not-C'],
+                'average_price': input_data['average price'],
+                'special_requests': input_data['special requests']
+            }
+            
+            return render_template('result.html', result=result, input_data=template_input_data)
         
         except Exception as e:
             logger.error(f"Prediction error: {str(e)}")
@@ -214,9 +244,12 @@ def api_predict():
         # Preprocess input
         processed_data = preprocess_input(data)
         
-        # Make prediction
-        prediction = model.predict(processed_data)[0]
+        # Make prediction with optimal threshold
         prediction_proba = model.predict_proba(processed_data)[0]
+        
+        # Use optimal threshold from model training
+        optimal_threshold = feature_info.get('optimal_threshold', 0.5)
+        prediction = 1 if prediction_proba[1] > optimal_threshold else 0
         
         # Decode prediction
         predicted_status = label_encoder.inverse_transform([prediction])[0]
